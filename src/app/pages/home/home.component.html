@@ -2,20 +2,22 @@
   <ng-container *ngIf="errorMessage.length === 0; else alert">
     <ng-container *ngIf="charactersPage.results.length > 0; else alert">
       <div class="row">
-        <div class="col p-3" *ngFor="let character of charactersPage.results | slice: (page-1) * pageSize : page * pageSize">
-          <div class="card" style="width: 18rem">
-            <a class="img-card" [routerLink]="['/character', character.id]">
-              <img [src]="character.image" />
-            </a>
-            <div class="card-content">
-              <h4 class="card-title">
-                <a [routerLink]="['/character', character.id]">
-                  {{ character.name }}
-                </a>
-              </h4>
+        <ng-container *ngIf="searchString.length === 0 else searchResult">
+          <div class="col p-3" *ngFor="let character of charactersPage.results">
+            <div class="card" style="width: 18rem">
+              <a class="img-card" [routerLink]="['/character', character.id]">
+                <img [src]="character.image" />
+              </a>
+              <div class="card-content">
+                <h4 class="card-title">
+                  <a [routerLink]="['/character', character.id]">
+                    {{ character.name }}
+                  </a>
+                </h4>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>        
       </div>
     </ng-container>
 
@@ -45,4 +47,21 @@
     [errorMessage]="errorMessage"
     [classConfig]="alertClasses"
   ></app-alert>
+</ng-template>
+
+<ng-template #searchResult>
+  <div class="col p-3" *ngFor="let character of charactersPage.results | slice: (page-1) * pageSize : page * pageSize">
+    <div class="card" style="width: 18rem">
+      <a class="img-card" [routerLink]="['/character', character.id]">
+        <img [src]="character.image" />
+      </a>
+      <div class="card-content">
+        <h4 class="card-title">
+          <a [routerLink]="['/character', character.id]">
+            {{ character.name }}
+          </a>
+        </h4>
+      </div>
+    </div>
+  </div>
 </ng-template>

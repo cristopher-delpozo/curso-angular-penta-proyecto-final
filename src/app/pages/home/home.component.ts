@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   numPages: number = 0;
 
   private allCharacters: ICharacter[] = [];
-  private searchString: string = '';
+  searchString: string = '';
 
   constructor(
     private dataService: DataService,
@@ -34,7 +34,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getCharactersPage() {
+  async getCharactersPage() {
+    if (this.allCharacters.length === 0) {
+      this.allCharacters = await this.dataService.getAllCharacters(
+        this.numPages
+      );
+    }
+    
     if (this.searchString.length == 0) {
       this.dataService
         .getCharactersByPage(this.page)
@@ -56,12 +62,6 @@ export class HomeComponent implements OnInit {
     this.errorMessage = '';
 
     if (this.searchString.length > 0) {
-      if (this.allCharacters.length === 0) {
-        this.allCharacters = await this.dataService.getAllCharacters(
-          this.numPages
-        );
-      }
-
       this.charactersPage.results = this.allCharacters.filter((char) =>
         char.name.toLowerCase().includes(this.searchString.toLowerCase())
       );
