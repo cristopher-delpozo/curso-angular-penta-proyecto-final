@@ -34,7 +34,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getCharactersPage() {
+  async getCharactersPage() {
+    if (this.allCharacters.length === 0) {
+      this.allCharacters = await this.dataService.getAllCharacters(
+        this.numPages
+      );
+    }
+    
     if (this.searchString.length == 0) {
       this.dataService
         .getCharactersByPage(this.page)
