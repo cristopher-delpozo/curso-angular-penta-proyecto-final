@@ -62,12 +62,6 @@ export class HomeComponent implements OnInit {
     this.errorMessage = '';
 
     if (this.searchString.length > 0) {
-      if (this.allCharacters.length === 0) {
-        this.allCharacters = await this.dataService.getAllCharacters(
-          this.numPages
-        );
-      }
-
       this.charactersPage.results = this.allCharacters.filter((char) =>
         char.name.toLowerCase().includes(this.searchString.toLowerCase())
       );

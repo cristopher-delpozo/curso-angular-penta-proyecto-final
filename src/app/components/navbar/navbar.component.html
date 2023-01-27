@@ -14,7 +14,8 @@
           name="searchString"
           [(ngModel)]="searchString"
           (keypress)="sendSearchString()"
-          (change)="sendSearchString()"
+          (keydown)="sendSearchString()"
+          (keyup)="sendSearchString()"
         />
       </form>
     </div>
