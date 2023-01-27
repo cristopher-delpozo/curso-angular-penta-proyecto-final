@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   numPages: number = 0;
 
   private allCharacters: ICharacter[] = [];
-  private searchString: string = '';
+  searchString: string = '';
 
   constructor(
     private dataService: DataService,
