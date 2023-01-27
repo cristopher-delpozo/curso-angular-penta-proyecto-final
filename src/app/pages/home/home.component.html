@@ -1,0 +1,48 @@
+<ng-container *ngIf="charactersPage; else loadingTemplate">
+  <ng-container *ngIf="errorMessage.length === 0; else alert">
+    <ng-container *ngIf="charactersPage.results.length > 0; else alert">
+      <div class="row">
+        <div class="col p-3" *ngFor="let character of charactersPage.results | slice: (page-1) * pageSize : page * pageSize">
+          <div class="card" style="width: 18rem">
+            <a class="img-card" [routerLink]="['/character', character.id]">
+              <img [src]="character.image" />
+            </a>
+            <div class="card-content">
+              <h4 class="card-title">
+                <a [routerLink]="['/character', character.id]">
+                  {{ character.name }}
+                </a>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row mt-3">
+      <div class="col">
+        <ngb-pagination
+          class="d-flex justify-content-center"
+          [collectionSize]="charactersPage.info.count"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="getCharactersPage()"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #loadingTemplate>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+
+<ng-template #alert>
+  <app-alert
+    [errorMessage]="errorMessage"
+    [classConfig]="alertClasses"
+  ></app-alert>
+</ng-template>

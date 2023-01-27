@@ -1,0 +1,37 @@
+<ng-container *ngIf="character else loadingTemplate">
+    <div class="d-flex justify-content-center">
+    <div class="card" style="width: 36rem">
+        <img [src]="character.image" class="card-img-top" alt="..." />
+        <div class="card-body">
+        <h5 class="card-title text-center">{{ character.name }}</h5>
+        <p>
+            <ng-container *ngIf="character.species.length > 0"
+            ><strong>Specie: </strong>{{ character.species }}<br
+            /></ng-container>
+            <ng-container *ngIf="character.status.length > 0"
+            ><strong>Status: </strong>{{ character.status }}<br
+            /></ng-container>
+            <ng-container *ngIf="character.type.length > 0"
+            ><strong>Type: </strong>{{ character.type }}<br
+            /></ng-container>
+            <ng-container *ngIf="character.gender.length > 0"
+            ><strong>Gender: </strong>{{ character.gender }}<br
+            /></ng-container>
+            <ng-container *ngIf="character.origin.name.length > 0"
+            ><strong>Origin: </strong>{{ character.origin.name }}<br
+            /></ng-container>
+            <ng-container *ngIf="character.location.name.length > 0"
+            ><strong>Location: </strong>{{ character.location.name }}<br
+            /></ng-container>
+        </p>
+        </div>
+        <div class="card-read-more">
+        <a [routerLink]="['/home']"> Back </a>
+        </div>
+    </div>
+    </div>
+</ng-container>
+
+<ng-template #loadingTemplate>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
